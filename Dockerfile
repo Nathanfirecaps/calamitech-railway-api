@@ -1,15 +1,14 @@
-FROM php:8.2-apache
+FROM php:8.2-cli
 
-# Disable all MPMs first (prevents "More than one MPM loaded")
-RUN a2dismod mpm_event mpm_worker || true \
-    && a2enmod mpm_prefork
+WORKDIR /app
 
-# Install mysqli for MySQL support
 RUN docker-php-ext-install mysqli
 
-# Copy PHP files
-COPY . /var/www/html/
+COPY . .
 
-# Apache runs on port 80
-EXPOSE 80
+EXPOSE 8080
+
+CMD ["php", "-S", "0.0.0.0:8080", "-t", "."]
+
+
 
