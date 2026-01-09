@@ -6,9 +6,6 @@ RUN docker-php-ext-install mysqli
 
 COPY . .
 
-EXPOSE 8080
-
-CMD ["php", "-S", "0.0.0.0:8080", "-t", "."]
-
-
+# Railway provides PORT dynamically
+CMD ["sh", "-c", "php -S 0.0.0.0:${PORT} -t ."]
 
